@@ -398,4 +398,4 @@ Para suporte, envie um email para elbotechia@gmail.com ou abra uma issue no GitH
 
 ---
 
-**AUTO CENTER SERVER** - *Modernizando a gestão automotiva* 🚗✨
+**AUTO CENTER SERVER** - *Modernizando a gestão automotiva* 🚗✨# auto-manager-medhub
