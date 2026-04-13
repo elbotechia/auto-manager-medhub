@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <title>AUTO CENTER SERVER - API</title>
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .api-status {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: #28a745;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+        .endpoint-badge {
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="favicon.png" alt="Logo" width="40" height="40" class="me-2">
+                AUTO CENTER SERVER
+            </a>
+            <div class="d-flex align-items-center">
+                <span class="api-status"></span>
+                <span class="text-success fw-bold">API Online</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <div class="logo-container">
+                <img src="favicon.png" alt="Auto Center SERVER" class="logo">
+                <h1 class="display-4 fw-bold mb-3">AUTO CENTER SERVER</h1>
+                <p class="lead mb-4">Sistema completo de gestão para centro automotivo</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <p class="fs-5 mb-4">
+                        API REST moderna com controle de estoque, clientes, funcionários, vendas e financeiro.
+                        Documentação completa com Swagger UI e autenticação JWT.
+                    </p>
+                    <a href="/api-docs" class="btn btn-light btn-lg me-3">
+                        <i class="bi bi-book"></i> Documentação API
+                    </a>
+                    <a href="/api-docs.json" class="btn btn-outline-light btn-lg">
+                        <i class="bi bi-download"></i> OpenAPI JSON
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Status da API -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="alert alert-success d-flex align-items-center" role="alert">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <div>
+                        <strong>API Funcionando!</strong> Todos os serviços estão operacionais.
+                        <a href="/api-docs" class="alert-link ms-2">Acesse a documentação completa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Links Principais -->
+        <div class="row mb-5">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 card-hover border-primary">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-book"></i> Documentação
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Interface interativa Swagger UI para explorar e testar todos os endpoints da API.</p>
+                        <a href="/api-docs" class="btn btn-primary" target="_blank">
+                            <i class="bi bi-arrow-up-right-square"></i> Abrir Swagger UI
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 card-hover border-info">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-file-earmark-code"></i> Especificação OpenAPI
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Baixe a especificação completa da API em formato JSON para integração.</p>
+                        <a href="/api-docs.json" class="btn btn-info" target="_blank">
+                            <i class="bi bi-download"></i> Baixar JSON
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Endpoints por Categoria -->
+        <div class="row">
+            <div class="col-12 mb-4">
+                <h2 class="text-center mb-4">
+                    <i class="bi bi-api"></i> Endpoints da API
+                </h2>
+            </div>
+
+            <!-- Autenticação -->
+            <div class="col-lg-6 mb-4">
+                <div class="card card-hover">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="mb-0"><i class="bi bi-shield-lock"></i> Autenticação</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <span class="badge bg-success endpoint-badge">POST</span>
+                            <code>/auth/register</code> - Registrar usuário
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-success endpoint-badge">POST</span>
+                            <code>/auth/login</code> - Fazer login
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/auth/profile</code> - Perfil do usuário
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-warning endpoint-badge">PUT</span>
+                            <code>/auth/password</code> - Alterar senha
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clientes -->
+            <div class="col-lg-6 mb-4">
+                <div class="card card-hover">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-people"></i> Clientes</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/clients</code> - Listar clientes
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/clients/:id</code> - Buscar por ID
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/clients/cpf/:cpf</code> - Buscar por CPF
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-success endpoint-badge">POST</span>
+                            <code>/clients</code> - Criar cliente
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-warning endpoint-badge">PUT</span>
+                            <code>/clients/:id</code> - Atualizar cliente
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-danger endpoint-badge">DELETE</span>
+                            <code>/clients/:id</code> - Excluir cliente
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Veículos -->
+            <div class="col-lg-6 mb-4">
+                <div class="card card-hover">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="bi bi-car-front"></i> Veículos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/vehicles</code> - Listar veículos
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/vehicles/:id</code> - Buscar por ID
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/vehicles/client/:clientId</code> - Por cliente
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/vehicles/plate/:plate</code> - Por placa
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-success endpoint-badge">POST</span>
+                            <code>/vehicles</code> - Cadastrar veículo
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-warning endpoint-badge">PUT</span>
+                            <code>/vehicles/:id</code> - Atualizar veículo
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Serviços -->
+            <div class="col-lg-6 mb-4">
+                <div class="card card-hover">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0"><i class="bi bi-tools"></i> Serviços</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/services</code> - Listar serviços
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/services/:id</code> - Buscar por ID
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-success endpoint-badge">POST</span>
+                            <code>/services</code> - Criar serviço
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-warning endpoint-badge">PUT</span>
+                            <code>/services/:id</code> - Atualizar serviço
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-danger endpoint-badge">DELETE</span>
+                            <code>/services/:id</code> - Excluir serviço
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vendas -->
+            <div class="col-lg-6 mb-4">
+                <div class="card card-hover">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="bi bi-currency-dollar"></i> Vendas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/sales</code> - Listar vendas
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/sales/:id</code> - Buscar por ID
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-success endpoint-badge">POST</span>
+                            <code>/sales</code> - Criar venda
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-warning endpoint-badge">PUT</span>
+                            <code>/sales/:id</code> - Atualizar venda
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-danger endpoint-badge">DELETE</span>
+                            <code>/sales/:id</code> - Cancelar venda
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagamentos -->
+            <div class="col-lg-6 mb-4">
+                <div class="card card-hover">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0"><i class="bi bi-credit-card"></i> Pagamentos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/payments</code> - Listar pagamentos
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-primary endpoint-badge">GET</span>
+                            <code>/payments/:id</code> - Buscar por ID
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-success endpoint-badge">POST</span>
+                            <code>/payments</code> - Registrar pagamento
+                        </div>
+                        <div class="mb-2">
+                            <span class="badge bg-warning endpoint-badge">PUT</span>
+                            <code>/payments/:id</code> - Atualizar pagamento
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Informações Técnicas -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="mb-0"><i class="bi bi-info-circle"></i> Informações Técnicas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6><i class="bi bi-gear"></i> Tecnologias</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check text-success"></i> Node.js + Express.js</li>
+                                    <li><i class="bi bi-check text-success"></i> MongoDB + Mongoose</li>
+                                    <li><i class="bi bi-check text-success"></i> JWT Authentication</li>
+                                    <li><i class="bi bi-check text-success"></i> Swagger/OpenAPI 3.0</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6><i class="bi bi-shield-check"></i> Recursos</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check text-success"></i> Autenticação JWT</li>
+                                    <li><i class="bi bi-check text-success"></i> Controle de Permissões</li>
+                                    <li><i class="bi bi-check text-success"></i> Validação de Dados</li>
+                                    <li><i class="bi bi-check text-success"></i> Documentação Interativa</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="bi bi-car-front"></i> AUTO CENTER SERVER</h5>
+                    <p class="mb-0">Sistema moderno de gestão automotiva</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">
+                        <i class="bi bi-envelope"></i>elbotechia@gmail.com<br>
+                        <i class="bi bi-github"></i> 
+                        <a href="https://github.com/botechia-erika/auto-center-server" class="text-light">
+                            GitHub Repository
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0">
+                        &copy; 2025 AUTO CENTER SERVER - Modernizando a gestão automotiva 🚗✨
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Verificar status da API
+        function checkAPIStatus() {
+            fetch('/api-docs.json')
+                .then(response => {
+                    if (response.ok) {
+                        document.querySelector('.api-status').style.backgroundColor = '#28a745';
+                        document.querySelector('.api-status').nextElementSibling.textContent = 'API Online';
+                        document.querySelector('.api-status').nextElementSibling.className = 'text-success fw-bold';
+                    }
+                })
+                .catch(() => {
+                    document.querySelector('.api-status').style.backgroundColor = '#dc3545';
+                    document.querySelector('.api-status').nextElementSibling.textContent = 'API Offline';
+                    document.querySelector('.api-status').nextElementSibling.className = 'text-danger fw-bold';
+                });
+        }
+
+        // Verificar status ao carregar a página
+        checkAPIStatus();
+        
+        // Verificar status a cada 30 segundos
+        setInterval(checkAPIStatus, 30000);
+    </script>
+</body>
+</html>
